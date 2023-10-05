@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.MenuFragment"
+	android:background="@android:color/transparent"
+	>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout"
+        android:padding="10dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/menu_tittle"
+            android:textStyle="bold"
+            android:inputType="textMultiLine"
+            android:layout_toStartOf="@+id/BtnAddMenu"
+            android:textSize="@dimen/abc_action_bar_content_inset_material"
+            android:textColor="@android:color/white"
+            android:text="@string/add_description"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtnAddMenu"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:fabSize="mini"
+            android:text="@string/add_menu"
+			android:src="@mipmap/ic_add_black_18dp"
+            />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menu_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayout" />
+
+</RelativeLayout>

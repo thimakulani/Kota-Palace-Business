@@ -1,0 +1,105 @@
+{
+  "project_info": {
+    "project_number": "354732206960",
+    "project_id": "local-kota-15d60",
+    "storage_bucket": "local-kota-15d60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354732206960:android:bc90b86c3d5b2207873db5",
+        "android_client_info": {
+          "package_name": "com.companyname.kotapalace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354732206960-vjko7srjs1k630ikhc4qtt99opvfa13d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJyGhbzGYmEU_praBKsKQ9hefQULkyqk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354732206960-vjko7srjs1k630ikhc4qtt99opvfa13d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354732206960:android:0b36d1857ce136b7873db5",
+        "android_client_info": {
+          "package_name": "com.example.spazaadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354732206960-vjko7srjs1k630ikhc4qtt99opvfa13d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJyGhbzGYmEU_praBKsKQ9hefQULkyqk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354732206960-vjko7srjs1k630ikhc4qtt99opvfa13d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354732206960:android:f9f6242a4776689e873db5",
+        "android_client_info": {
+          "package_name": "com.kota.spaza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354732206960-p8sb5nk27i79u3gkun80h63v7g926ubr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kota.spaza",
+            "certificate_hash": "cddcb9d1cc47bfc225e0bcccfc6069af403735f2"
+          }
+        },
+        {
+          "client_id": "354732206960-vjko7srjs1k630ikhc4qtt99opvfa13d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJyGhbzGYmEU_praBKsKQ9hefQULkyqk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354732206960-vjko7srjs1k630ikhc4qtt99opvfa13d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

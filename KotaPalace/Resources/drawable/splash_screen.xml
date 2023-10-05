@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <color android:color="@color/colorThemeColor"/>
+    
+  </item>
+  <item>
+    <bitmap
+      android:gravity="center"
+      android:tileMode="disabled"
+      android:src="@drawable/kota_palace_transparent"
+      android:tint="#ffffff"
+      android:autoMirrored="true"
+	  
+   />
+  </item>
+</layer-list>

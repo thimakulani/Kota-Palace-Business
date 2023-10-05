@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cancel_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mtrl_ic_cancel"
+        android:contentDescription=""
+        android:tint="@color/colorPrimary"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="Select driver to deliver order"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:layout_below="@id/cancel_iv"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/select_user_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/title_txt"/>
+
+</RelativeLayout>

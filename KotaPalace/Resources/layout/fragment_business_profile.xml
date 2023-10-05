@@ -1,0 +1,251 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/menu_top_app_bar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/ImgBusinessLogo"
+            android:src="@mipmap/logo_food"
+        />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp"
+        >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/OutputBusinessOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="owner"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_gravity="end"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/OutputBusinessStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="status"
+                android:textAllCaps="true"
+                android:layout_gravity="end"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:minWidth="25dp"
+                android:minHeight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textInputLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Business Name"
+                    android:textColorHint="@color/colorThemeColor"
+                    android:textColor="@color/colorThemeColor"
+                    android:id="@+id/OutputBusinessName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:minWidth="25dp"
+                android:minHeight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorThemeColor"
+                    android:textColor="@color/colorThemeColor"
+                    android:hint="Business description"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/OutputBusinessDesc" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:minWidth="25dp"
+                android:minHeight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textInputLayout4"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorThemeColor"
+                    android:textColor="@color/colorThemeColor"
+                    android:hint="Business Address"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/OutputBusinessAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:minWidth="25dp"
+                android:minHeight="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorThemeColor"
+                    android:textColor="@color/colorThemeColor"
+                    android:hint="Business Phone number"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/OutputBusinessPhoneNumber" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mf_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/gray"
+                    android:text="update"
+                    android:textColor="@color/gray"
+                    android:textStyle="normal"
+                    android:layout_weight="50"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_mf_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/gray"
+                    android:text="update"
+                    android:textColor="@color/gray"
+                    android:textStyle="normal"
+                    android:layout_weight="50"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sat_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/gray"
+                    android:text="update"
+                    android:textColor="@color/gray"
+                    android:textStyle="normal"
+                    android:layout_weight="50"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sat_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/gray"
+                    android:text="update"
+                    android:textColor="@color/gray"
+                    android:textStyle="normal"
+                    android:layout_weight="50"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sun_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/gray"
+                    android:text="update"
+                    android:textColor="@color/gray"
+                    android:textStyle="normal"
+                    android:layout_weight="50"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sun_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/gray"
+                    android:text="update"
+                    android:textColor="@color/gray"
+                    android:textStyle="normal"
+                    android:layout_weight="50"/>
+            </LinearLayout>
+
+            <!--<com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/colorThemeColor"
+                android:id="@+id/BtnUpdateProfile"
+                android:text="@string/abc_action_mode_done"/>-->
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FabMenuImg"
+        app:layout_anchor="@+id/menu_top_app_bar"
+        android:backgroundTint="@color/colorThemeColor"
+        app:layout_anchorGravity="right|bottom"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_marginEnd="15dp"
+        tools:ignore="ContentDescription" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
