@@ -50,9 +50,6 @@ namespace KotaPalace.Dialogs
             // Create your fragment here
         }
 
-        public AddMenuDialogFragment()
-        {
-        }
 
         private FileResult file;
 
@@ -187,7 +184,7 @@ namespace KotaPalace.Dialogs
                         Extras = Items,
                         Status = true,
                         Url = url?.ToString()
-                    };
+                    }; 
 
                     var json = Newtonsoft.Json.JsonConvert.SerializeObject(menu);
                     HttpContent data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -198,12 +195,13 @@ namespace KotaPalace.Dialogs
                     if (result.IsSuccessStatusCode)
                     {
                         string str_out = await result.Content.ReadAsStringAsync();
-                        Message("Menu added successfully!!!");
 
                         InputItemName.Text = "";
                         InputItemPrice.Text = "";
                         chipGroup.RemoveAllViews();
                         Items.Clear();
+                        Message("Menu added successfully!!!");
+                        MenuHandler.Invoke(this, new AddedMenuArgs() { mMenu = menu });
                     }
                 }
                 catch (Exception ex)
@@ -212,11 +210,15 @@ namespace KotaPalace.Dialogs
                 }
                 finally
                 {
-
+                    
                 }
             }
         }
-
+        public event EventHandler<AddedMenuArgs> MenuHandler;
+        public class AddedMenuArgs : EventArgs
+        {
+            public Menu mMenu { get; set; }
+        }
         private async Task<FileResult> PickAndShow()
         {
             try

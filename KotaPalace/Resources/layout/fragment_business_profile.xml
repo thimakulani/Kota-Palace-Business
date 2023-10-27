@@ -15,7 +15,7 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:id="@+id/ImgBusinessLogo"
-            android:src="@mipmap/logo_food"
+            android:src="@drawable/broken_picture_icon"
         />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -25,13 +25,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:background="@color/color_white"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="15dp"
+            
         >
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/OutputBusinessOwner"
@@ -40,6 +43,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="owner"
                 android:textStyle="bold"
+                android:capitalize="true"
                 android:textAllCaps="true"
                 android:layout_gravity="end"/>
 
@@ -50,7 +54,7 @@
                 android:layout_margin="10dp"
                 android:text="status"
                 android:textAllCaps="true"
-                android:layout_gravity="end"/>
+                android:layout_gravity="start"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:minWidth="25dp"
@@ -63,7 +67,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Business Name"
+                    android:hint="BUSINESS NAME"
                     android:textColorHint="@color/colorThemeColor"
                     android:textColor="@color/colorThemeColor"
                     android:id="@+id/OutputBusinessName" />
@@ -81,17 +85,49 @@
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/colorThemeColor"
                     android:textColor="@color/colorThemeColor"
-                    android:hint="Business description"
+                    android:hint="BUSINESS DESCRIPTION"
                     android:inputType="numberDecimal"
                     android:id="@+id/OutputBusinessDesc" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                >
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textInputLayout4"
+                    android:layout_toStartOf="@+id/BtnMapLocation"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorThemeColor"
+                        android:textColor="@color/colorThemeColor"
+                        android:hint="BUSINESS ADDRESS"
+                        android:inputType="numberDecimal"
+                        android:lines="2"
+                        android:enabled="false"
+                        android:id="@+id/OutputBusinessAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/location_map_pin_icon"
+                    android:id="@+id/BtnMapLocation"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:cornerRadius="4dp"
+                    />
+            </RelativeLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:minWidth="25dp"
                 android:minHeight="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textInputLayout4"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
                 <com.google.android.material.textfield.TextInputEditText
@@ -99,141 +135,22 @@
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/colorThemeColor"
                     android:textColor="@color/colorThemeColor"
-                    android:hint="Business Address"
-                    android:inputType="numberDecimal"
-                    android:id="@+id/OutputBusinessAddress" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:minWidth="25dp"
-                android:minHeight="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorThemeColor"
-                    android:textColor="@color/colorThemeColor"
-                    android:hint="Business Phone number"
+                    android:hint="BUSINESS PHONE NUMBER"
                     android:inputType="numberDecimal"
                     android:id="@+id/OutputBusinessPhoneNumber" />
             </com.google.android.material.textfield.TextInputLayout>
 
             
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100">
+           
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_mf_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeColor="@color/gray"
-                    android:text="update"
-                    android:textColor="@color/gray"
-                    android:textStyle="normal"
-                    android:layout_weight="50"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_mf_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeColor="@color/gray"
-                    android:text="update"
-                    android:textColor="@color/gray"
-                    android:textStyle="normal"
-                    android:layout_weight="50"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_sat_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeColor="@color/gray"
-                    android:text="update"
-                    android:textColor="@color/gray"
-                    android:textStyle="normal"
-                    android:layout_weight="50"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_sat_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeColor="@color/gray"
-                    android:text="update"
-                    android:textColor="@color/gray"
-                    android:textStyle="normal"
-                    android:layout_weight="50"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_sun_open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeColor="@color/gray"
-                    android:text="update"
-                    android:textColor="@color/gray"
-                    android:textStyle="normal"
-                    android:layout_weight="50"/>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_sun_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeColor="@color/gray"
-                    android:text="update"
-                    android:textColor="@color/gray"
-                    android:textStyle="normal"
-                    android:layout_weight="50"/>
-            </LinearLayout>
-
-            <!--<com.google.android.material.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorThemeColor"
                 android:id="@+id/BtnUpdateProfile"
-                android:text="@string/abc_action_mode_done"/>-->
+                app:cornerRadius="4dp"
+                android:text="@string/update"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

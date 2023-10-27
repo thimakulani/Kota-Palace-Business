@@ -7,13 +7,12 @@ using Android.Widget;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 
 namespace KotaPalace.Models
 {
-    public static class API
+    public class FirebaseAdminSdk
     {
-        public static string Url = "https://kotapalaceadmin.azurewebsites.net/api";
+
     }
 }

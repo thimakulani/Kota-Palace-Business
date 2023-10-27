@@ -5,13 +5,14 @@
 
 	<!--common-->
 	<string name="order_name">Name</string>
+	<string name="accept">Accept</string>
 	<string name="order_price">Price</string>
 	<string name="order_desc">Description</string>
 	<string name="confirm">CONFIRM ADDRESS</string>
 	<string name="home_spaza_names_heading">All local Kota Palace</string>
 	<string name="add_to_cart">Add to cart</string>
 	<string name="txt_landing_page_caption">Sign in</string>
-	<string name="btn_login">Login</string>
+	<string name="btn_login">Login Business App</string>
 	<string name="btn_sign_up">Sign up</string>
 	<string name="input_password">Password</string>
 	<string name="input_password_confirm"> Confirm password</string>
@@ -47,5 +48,9 @@
 	<string name="add_menu">ADD MENU</string>
 	<string name="update">UPDATE</string>
 	<string name="delete">DELETE</string>
+	<string name="customer">CUSTOMER</string>
+	<string name="view_order">View</string>
+	<string name="contact">CONTACT</string>
+	<string name="total_price">TOTAL PRICE</string>
 	<string name="add_description">ADD A MENU TO YOUR INVENTORY FOR CUSTOMERS TO MAKE THEIR ORDERS</string>
 </resources>

@@ -30,7 +30,7 @@ namespace KotaPalace.Adapters
             vh.row_order_status.Text = order.Status;
             vh.row_order_date.Text = order.OrderDateUtc.ToString("ddd, dd MMM yyyy");
 
-            FindUserAsync(order.Customer_Id, vh.row_order_id);
+            FindUserAsync(order.CustomerId, vh.row_order_id);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

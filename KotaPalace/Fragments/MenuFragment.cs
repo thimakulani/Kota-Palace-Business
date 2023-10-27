@@ -61,15 +61,22 @@ namespace KotaPalace.Fragments
         {
             BtnAddMenu.Click += (s, e) =>
             {
-                new AddMenuDialogFragment()
-                .Show(ChildFragmentManager.BeginTransaction(), "");
+                var dlg = new AddMenuDialogFragment();
+                dlg.Show(ChildFragmentManager.BeginTransaction(), "");
+                dlg.MenuHandler += (ss, ee) =>
+                {
+                    MenuList.Add(ee.mMenu);
+                    adapter.NotifyDataSetChanged();
+                };
+
+
             };
         }
-
+        MenuAdapter adapter;
+        ObservableCollection<Menu> MenuList = new ObservableCollection<Menu>();
         private async void LoadMenusAsync()
         {
             var businessId = Preferences.Get("businessId", 0);
-
             HttpClient client = new HttpClient();
             var response = await client.GetAsync($"{API.Url}/menus/all/{businessId}"); // car details
 
@@ -78,8 +85,8 @@ namespace KotaPalace.Fragments
                 var str_results = await response.Content.ReadAsStringAsync();
                 var results = Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<Menu>>(str_results);
 
-                ObservableCollection<Menu> MenuList = new ObservableCollection<Menu>();
-                MenuAdapter adapter = new MenuAdapter(MenuList);
+                
+                adapter = new MenuAdapter(MenuList);
                 adapter.BtnClick += (s, e) =>
                 {
                     PopupMenu popup = new PopupMenu(context, e.ImgBtn);

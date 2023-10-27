@@ -5,30 +5,27 @@ using AndroidHUD;
 using AndroidX.Fragment.App;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Button;
-using Google.Android.Material.Chip;
-using Java.Util;
 using KotaPalace.Adapters;
 using KotaPalace.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using XamarinTextDrawable;
+using static Android.Content.ClipData;
 using Context = Android.Content.Context;
-using Random = System.Random;
 
 namespace KotaPalace.Dialogs
 {
-    public class OrderViewFragment : DialogFragment
+    public class OrderDetailsDialog : DialogFragment
     {
         private Context context;
 
         private ImageView close_order_view;
 
-        private TextView order_name;
+        private TextView customer_name;
         private TextView order_price;
-        private TextView business_Id;
-        private TextView order_status;
+        private TextView customer_number;
+        //private TextView order_status;
 
         private RecyclerView orderItemsRecyclerView;
 
@@ -41,11 +38,11 @@ namespace KotaPalace.Dialogs
         private readonly Order order;
         readonly List<OrderItems> OrderItemList = new List<OrderItems>();
 
-        public OrderViewFragment()
+        public OrderDetailsDialog()
         {
         }
 
-        public OrderViewFragment(Order order)
+        public OrderDetailsDialog(Order order)
         {
             this.order = order;
         }
@@ -67,7 +64,7 @@ namespace KotaPalace.Dialogs
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            View view = inflater.Inflate(Resource.Layout.order_row_view, container, false);
+            View view = inflater.Inflate(Resource.Layout.order_detail_dialog, container, false);
             context = view.Context;
             Init(view);
             LoadOrdersAsync();
@@ -80,17 +77,27 @@ namespace KotaPalace.Dialogs
         private void Init(View view)
         {
             close_order_view = view.FindViewById<ImageView>(Resource.Id.close_order_view);
+            orderItemsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.orderItemsRecyclerView);
+            BtnProcess = view.FindViewById<MaterialButton>(Resource.Id.BtnProcess);
+            order_price = view.FindViewById<TextView>(Resource.Id.total_price);
+            customer_name = view.FindViewById<TextView>(Resource.Id.customer_name);
+            customer_number = view.FindViewById<TextView>(Resource.Id.customer_contact);
 
-            order_name = view.FindViewById<TextView>(Resource.Id.order_name);
-            order_price = view.FindViewById<TextView>(Resource.Id.order_price);
+            customer_name.Text = $"{order.Customer.Firstname} {order.Customer.Lastname}";
+            customer_number.Text = order.Customer.PhoneNumber;
+
+
+            close_order_view.Click += (s, e) =>
+            {
+                Dismiss();
+            };
+            /*order_name = view.FindViewById<TextView>(Resource.Id.order_name);
             business_Id = view.FindViewById<TextView>(Resource.Id.business_Id);
             order_status = view.FindViewById<TextView>(Resource.Id.order_status);
 
             order_status.Text = order.Status;
 
-            orderItemsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.orderItemsRecyclerView);
 
-            BtnProcess = view.FindViewById<MaterialButton>(Resource.Id.BtnProcess);
 
             close_order_view.Click += (s, e) =>
             {
@@ -100,16 +107,17 @@ namespace KotaPalace.Dialogs
             BtnProcess.Click += (s, e) =>
             {
                 ProcessOrderAsync();
-            };
+            };*/
         }
 
         private void CheckOrderStatus()
         {
-            if(order.Status == "Pending")
+            if (order.Status == "Pending")
             {
                 BtnProcess.Text = "ACCEPT";
 
-            }else if(order.Status == "Accepted")
+            }
+            else if (order.Status == "Accepted")
             {
                 BtnProcess.Text = "FINISH";
             }
@@ -138,22 +146,24 @@ namespace KotaPalace.Dialogs
                 OrderItemAdapter mAdapter = new OrderItemAdapter(OrderItemList);
                 orderItemsRecyclerView.SetAdapter(mAdapter);
 
-                   
-                business_Id.Text = $"Business ID: {order.BusinessId}";
-                order_status.Text = $"Status: {order.Status}";
+
+                //business_Id.Text = $"Business ID: {order.BusinessId}";
+                //order_status.Text = $"Status: {order.Status}";
 
                 var extras = order.OrderItems;
-
+                decimal price = 0;
                 foreach (var item in extras)
                 {
                     OrderItemList.Add(item);
-                    order_price.Text = $"R{item.Price}";
-                    order_name.Text = item.ItemName;
+                    price = +item.Price;
+
+                    //customer_name.Text = item.ItemName;
                 }
-                mAdapter.NotifyDataSetChanged(); 
-                
+                order_price.Text = $"R{price}";
+                mAdapter.NotifyDataSetChanged();
+
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 Message(e.Message);
             }
@@ -174,7 +184,7 @@ namespace KotaPalace.Dialogs
                 {
                     string str_out = await response.Content.ReadAsStringAsync();
                     //SuccessMessage(str_out);
-                    if(str_out == "Ready")
+                    if (str_out == "Ready")
                     {
 
                     }

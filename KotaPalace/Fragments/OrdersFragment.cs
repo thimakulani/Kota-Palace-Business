@@ -4,8 +4,13 @@ using AndroidX.Fragment.App;
 using AndroidX.ViewPager2.Adapter;
 using AndroidX.ViewPager2.Widget;
 using Facebook.Shimmer;
+using Google.Android.Material.MaterialSwitch;
 using Google.Android.Material.Tabs;
+using KotaPalace.Models;
+using Microsoft.AspNet.SignalR.Client;
 using System.Collections.Generic;
+using System.Net.Http;
+using Xamarin.Essentials;
 
 namespace KotaPalace.Fragments
 {
@@ -15,10 +20,11 @@ namespace KotaPalace.Fragments
         private TabLayout tabHost;
         private ViewPager2 viewpager;
 
-        private int[] tabIcons = { Resource.Drawable.ic_order, Resource.Drawable.ic_restaurant_menu };
-
+        private readonly int[] tabIcons = { Resource.Drawable.ic_order, Resource.Drawable.ic_restaurant_menu };
+        private HubConnection hubConnection;
         public OrdersFragment()
         {
+            
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -31,21 +37,50 @@ namespace KotaPalace.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_orders, container, false);
 
             Init(view);
-            SetViewPager(viewpager);
+            SetViewPager();
 
             return view;
         }
-
+        private MaterialSwitch status;
         private void Init(View view)
         {
             tabHost = view.FindViewById<TabLayout>(Resource.Id.TabHost);
             viewpager = view.FindViewById<ViewPager2>(Resource.Id.viewpager);
+            status = view.FindViewById<MaterialSwitch>(Resource.Id.status);
+            status.Click += Status_Click;
         }
 
-        private void SetViewPager(ViewPager2 pager)
+        private async void Status_Click(object sender, System.EventArgs e)
+        {
+            var businessId = Preferences.Get("businessId", 0);
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.GetAsync($"{API.Url}/businesses/online/{businessId}");
+                if(response.IsSuccessStatusCode)
+                {
+                    var str = await response.Content.ReadAsStringAsync();
+                    var bus = Newtonsoft.Json.JsonConvert.DeserializeObject<Business>(str);
+                    if(bus.Online == "ONLINE")
+                    {
+                        status.TextOn = bus.Online;
+                    }
+                    else
+                    {
+                        status.TextOn = bus.Online;
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+
+            }
+        }
+
+        private void SetViewPager()
         {
             var adapter = new Adapter(this);
-            adapter.AddFragment(new PrepareOrderFragmentTab(), "INCOMING ORDERS");
+            adapter.AddFragment(new PrepareOrderFragmentTab(), "ORDERS");
             adapter.AddFragment(new ReadyOrdersFragmentTab(), "READY");
 
             viewpager.Adapter = adapter;

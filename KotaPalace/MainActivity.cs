@@ -19,6 +19,7 @@ using NUnit.Framework;
 using IsmaelDiVita.ChipNavigationLib;
 using static Android.Icu.Text.Transliterator;
 using Google.Android.Material.AppBar;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace KotaPalace
 {
@@ -36,7 +37,19 @@ namespace KotaPalace
             {
                 LoadDefaultFragment();
             }
-
+            var hubConnection = new HubConnectionBuilder()
+                .WithUrl("https://kotapalaceadmin.azurewebsites.net/OrderHub")
+                .Build();
+            hubConnection.On<Order>("Order", (response) =>
+            {
+                Console.WriteLine(response);
+            });
+            hubConnection.StartAsync();
+            if (hubConnection.State == HubConnectionState.Connected)
+            {
+                Console.WriteLine("Connected to the hub.");
+                // You can now interact with the hub.
+            }
             InitializeComponents();
             _ = GetUserId();
         }

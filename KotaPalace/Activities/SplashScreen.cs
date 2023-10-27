@@ -49,7 +49,7 @@ namespace KotaPalace.Activities
 
                     HttpClient httpClient = new HttpClient();
                     HttpContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                    var response = await httpClient.PostAsync($"{API.Url}/account/login", httpContent);
+                    var response = await httpClient.PostAsync($"{API.Url}/account/business/login", httpContent);
                     if (response.IsSuccessStatusCode)
                     {
                         Intent intent = new Intent(Application.Context, typeof(MainActivity));

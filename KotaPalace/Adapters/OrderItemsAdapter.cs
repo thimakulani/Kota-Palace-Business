@@ -34,11 +34,14 @@ namespace KotaPalace.Adapters
 
             foreach (var i in extras)
             {
-                Chip chip = new Chip(vh.ItemView.Context)
+                if(!string.IsNullOrEmpty(i))
                 {
-                    Text = i
-                };
-                vh.ChipGroup.AddView(chip);
+                    Chip chip = new Chip(vh.ItemView.Context)
+                    {
+                        Text = i
+                    };
+                    vh.ChipGroup.AddView(chip);
+                }
             }
         }
         //public event EventHandler<OrderBtnClick> BtnClick;

@@ -89,10 +89,10 @@ namespace KotaPalace.Fragments
 
             //BtnUpdateProfile = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
-            BtnUpdateProfile.Click += (s, e) =>
+            /*BtnUpdateProfile.Click += (s, e) =>
             {
                 UpdateUserDetails();
-            };
+            };*/
         }
 
         private async void GetBusinessAsync()

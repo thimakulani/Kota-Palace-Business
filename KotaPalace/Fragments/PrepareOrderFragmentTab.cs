@@ -8,9 +8,14 @@ using Facebook.Shimmer;
 using KotaPalace.Adapters;
 using KotaPalace.Dialogs;
 using KotaPalace.Models;
+using Microsoft.AspNetCore.SignalR.Client;
+using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace KotaPalace.Fragments
@@ -37,15 +42,77 @@ namespace KotaPalace.Fragments
             context = view.Context;
             Init(view);
             LoadOrdersAsync();
-            
+            hubConnection = new HubConnectionBuilder().WithUrl("https://kotapalaceadmin.azurewebsites.net/OrderHub").Build();
+            hubConnection.On<Order>("Order", (response) =>
+            {
+                OrderList.Add(response);
+                mAdapter.NotifyDataSetChanged();
+            });
+            hubConnection.StartAsync();
+            if (hubConnection.State == HubConnectionState.Connected)
+            {
+                Console.WriteLine("Connected to the hub.");
+                // You can now interact with the hub.
+            }
+            hubConnection.Reconnected += HubConnection_Reconnected;
             return view;
         }
-
+        HubConnection hubConnection;
         private void Init(View view)
         {
             orders_rv = view.FindViewById<RecyclerView>(Resource.Id.orders_rv);
         }
+        PrepareOrderAdapter mAdapter;
+        private void InitiateFirestoreListener(int business_id)
+        {
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Order")
+                .WhereEqualsTo("business_id", business_id)
+                .AddSnapshotListener((data, error) =>
+                {
+                    foreach (var item in data.DocumentChanges)
+                    {
+                        OrderHelper orderHelper = item.Document.ToObject<OrderHelper>();
 
+
+                        switch (item.Type)
+                        {
+                            case DocumentChangeType.Added:
+                                var order = OrderList.Where(x=>x.Id == orderHelper.OrderId).FirstOrDefault();
+                                 if(order == null)
+                                {
+                                    //get data from api
+                                    GetOrder(orderHelper.OrderId);
+                                }
+                                break;
+                            case DocumentChangeType.Modified:
+                                break;
+                            case DocumentChangeType.Removed:
+                                break;
+                        }
+                    }
+                });
+        }
+        private async void GetOrder(int id)
+        {
+            HttpClient httpClient = new HttpClient();
+            try
+            {
+                var response = await httpClient.GetAsync($"{API.Url}/orders/single/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var str_content = await response.Content.ReadAsStringAsync();   
+                    var order = Newtonsoft.Json.JsonConvert.DeserializeObject<Order>(str_content);
+                    OrderList.Add(order);
+                    mAdapter.NotifyDataSetChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         private async void LoadOrdersAsync()
         {
             var businessId = Preferences.Get("businessId", 0);
@@ -53,14 +120,14 @@ namespace KotaPalace.Fragments
             {
 
                 HttpClient client = new HttpClient();
-                var response = await client.GetAsync($"{API.Url}/orders/{businessId}"); // car details
+                var response = await client.GetAsync($"{API.Url}/orders/{businessId}"); 
 
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
                 orders_rv.SetLayoutManager(mLayoutManager);
-                PrepareOrderAdapter mAdapter = new PrepareOrderAdapter(OrderList);
+                mAdapter = new PrepareOrderAdapter(OrderList);
                 mAdapter.BtnClick += (s, e) =>
                 {
-                    OrderViewFragment order = new OrderViewFragment(OrderList[e.Position]);
+                    OrderDetailsDialog order = new OrderDetailsDialog(OrderList[e.Position]);
                     order.Show(ChildFragmentManager.BeginTransaction(), "");
                 };
 
@@ -85,34 +152,40 @@ namespace KotaPalace.Fragments
                 }
 
 
-                //Task startWork = new Task(() =>
-                //{
-                //    Task.Delay(3000);
-                //});
-                //startWork.ContinueWith(t =>
-                //{
-                //    try
-                //    {
-                //        shimmerFrameLayout1.StopShimmer();
-                //        shimmerFrameLayout1.Visibility = ViewStates.Gone;
-                //    }
-                //    catch (Exception ex)
-                //    {
-
-                //        Toast.MakeText(context, ex.Message, ToastLength.Long).Show();
-                //    }
-                //}, TaskScheduler.FromCurrentSynchronizationContext());
-                //startWork.Start();
+                
             }
             catch (Exception ex)
             {
                 Message(ex.Message);
             }
+            finally
+            {
+                InitiateFirestoreListener(businessId);
+            }
+        }
+        public void LodadSignalR(int businessId)
+        {
+           
+        }
+
+        private System.Threading.Tasks.Task HubConnection_Reconnected(string arg)
+        {
+            Console.WriteLine($"{arg}");
+            return Task.CompletedTask;
         }
 
         private void Message(string str_results)
         {
             AndHUD.Shared.ShowError(context, str_results, MaskType.None, TimeSpan.FromSeconds(3));
         }
+    }
+    public class OrderHelper
+    {
+        [Id]
+        public string Id { get; set; }
+        [MapTo("order_id")]
+        public int OrderId { get; set; }
+        [MapTo("business_id")]
+        public int BusinessId { get; set; }
     }
 }

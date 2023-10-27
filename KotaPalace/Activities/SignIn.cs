@@ -92,7 +92,7 @@ namespace KotaPalace.Activities
                     using (var httpClient = new HttpClient())
                     {
                         var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-                        var response = await httpClient.PostAsync($"{API.Url}/account/login", httpContent);
+                        var response = await httpClient.PostAsync($"{API.Url}/account/business/login", httpContent);
 
                         if (response.IsSuccessStatusCode)
                         {

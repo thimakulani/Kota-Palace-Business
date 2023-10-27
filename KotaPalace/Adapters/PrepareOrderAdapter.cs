@@ -1,6 +1,7 @@
 ﻿using Android.Views;
 using AndroidX.AppCompat.Widget;
 using AndroidX.RecyclerView.Widget;
+using Firebase.Firestore.Auth;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextView;
 using KotaPalace.Models;
@@ -26,7 +27,7 @@ namespace KotaPalace.Adapters
             OrderViewHolder vh = holder as OrderViewHolder;
             var order = orders[position];
 
-            vh.row_order_no.Text = $"{order.Id}";
+           // vh.row_order_customer.Text = $"{order.Id}";
             vh.row_order_status.Text = $"{order.Status}";
 
             //var date = Convert.ToDateTime(order.OrderDate);
@@ -38,10 +39,13 @@ namespace KotaPalace.Adapters
                 vh.view_btn.Enabled = false;
                 vh.view_btn.Text = "DONE";
             }
-
+            if(order.Customer != null)
+            {
+                vh.row_order_customer.Text = $"{order?.Customer.Firstname} {order?.Customer.Lastname}";
+            }
             vh.view_btn.Click += (s, e) => { BtnClick.Invoke(vh.ItemView.Context, new OrderBtnClick() { Position = position }); };
 
-            FindUserAsync(order.Customer_Id, vh.row_order_id);
+            //FindUserAsync(order.CustomerId, vh.row_order_id);
         }
         public event EventHandler<OrderBtnClick> BtnClick;
 
@@ -79,7 +83,7 @@ namespace KotaPalace.Adapters
     {
         public MaterialTextView row_order_id { get; set;}
         public MaterialTextView row_order_status { get; set;}
-        public MaterialTextView row_order_no { get; set; }
+        public MaterialTextView row_order_customer { get; set; }
         public MaterialTextView row_order_date { get; set; }
         public AppCompatTextView row_order_time { get; set; }
         public MaterialButton view_btn { get; set; }
@@ -87,7 +91,7 @@ namespace KotaPalace.Adapters
         public OrderViewHolder(View itemview) : base(itemview)
         {
             //row_order_image = itemview.FindViewById<AppCompatImageView>(Resource.Id.row_order_image);
-            row_order_no = itemview.FindViewById<MaterialTextView>(Resource.Id.row_order_no);
+            row_order_customer = itemview.FindViewById<MaterialTextView>(Resource.Id.row_order_customer);
             row_order_status = itemview.FindViewById<MaterialTextView>(Resource.Id.row_order_status);
             row_order_id = itemview.FindViewById<MaterialTextView>(Resource.Id.row_order_id);
             row_order_date = itemview.FindViewById<MaterialTextView>(Resource.Id.row_order_date);
