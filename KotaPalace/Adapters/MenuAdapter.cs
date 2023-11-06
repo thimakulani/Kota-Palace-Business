@@ -46,6 +46,7 @@ namespace KotaPalace.Adapters
                     .LoadUrl(menu.Url)
                     .Into(vh.Row_menuIcon);
             }
+            
 
             vh.ChipGroup.RemoveAllViews();
 

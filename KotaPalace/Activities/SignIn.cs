@@ -11,6 +11,7 @@ using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
 using Google.Android.Material.TextView;
 using ID.IonBit.IonAlertLib;
+using Java.Net;
 using KotaPalace.Dialogs;
 using KotaPalace.Models;
 using Newtonsoft.Json;
@@ -118,7 +119,11 @@ namespace KotaPalace.Activities
 
 
                 }
-                catch (Exception ex)
+                catch (HttpRequestException ex)
+                {
+                    AndHUD.Shared.ShowError(this, ex.Message, MaskType.Clear, TimeSpan.FromSeconds(3));
+                }
+                catch(UnknownHostException ex)
                 {
                     AndHUD.Shared.ShowError(this, ex.Message, MaskType.Clear, TimeSpan.FromSeconds(3));
                 }

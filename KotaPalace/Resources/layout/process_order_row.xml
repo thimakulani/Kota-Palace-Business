@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:ignore="MissingConstraints"
-    android:layout_marginEnd="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="16dp"
+    android:layout_margin="5dp"
     
     >
     <RelativeLayout
@@ -50,20 +48,17 @@
                 android:layout_marginBottom="10dp"
                 android:text="Date"
                 android:textColor="@color/gray"
+                    />  
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/row_order_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Date"
+                android:textColor="@color/gray"
                     />
         </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/row_order_no"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:background="@drawable/button_bg"
-            android:layout_alignParentEnd="false"/>
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

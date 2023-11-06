@@ -5,18 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/view_style_2">
-	<com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout1"
-        android:background="@color/float_transparent"
-    >
-		<com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:id="@+id/toolbar_main"
-            android:layout_height="wrap_content"/>
-
-	</com.google.android.material.appbar.AppBarLayout>
+	
 
     <FrameLayout
         android:id="@+id/fragHost"

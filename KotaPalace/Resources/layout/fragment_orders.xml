@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:id="@+id/status"
+            android:layout_marginRight="5dp"
             />
         <com.google.android.material.tabs.TabLayout
             app:tabGravity="fill"

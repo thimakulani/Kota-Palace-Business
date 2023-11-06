@@ -36,6 +36,7 @@
 	<string name="add">ADD</string>
 	<string name="product_name">PRODUCT NAME</string>
 	<string name="item_description">NOTE(OPTIONAL)</string>
+	<string name="description_note">NOTE</string>
 	<string name="item_addition">ADDITION</string>
 	<string name="item_status">STATUS</string>
 	<string name="item_currency">R</string>
@@ -52,5 +53,6 @@
 	<string name="view_order">View</string>
 	<string name="contact">CONTACT</string>
 	<string name="total_price">TOTAL PRICE</string>
+	<string name="order_type">ORDER TYPE</string>
 	<string name="add_description">ADD A MENU TO YOUR INVENTORY FOR CUSTOMERS TO MAKE THEIR ORDERS</string>
 </resources>

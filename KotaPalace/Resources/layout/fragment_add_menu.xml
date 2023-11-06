@@ -16,7 +16,7 @@
         android:layout_margin="10dp"
 		android:src="@drawable/mtrl_ic_cancel"
     />
-	<com.google.android.material.carousel.MaskableFrameLayout
+	<!--<com.google.android.material.carousel.MaskableFrameLayout
 		 android:layout_width="match_parent"
 		 android:layout_height="wrap_content"
 		 android:layout_marginStart="4dp"
@@ -24,14 +24,15 @@
          android:foreground="?attr/selectableItemBackground"
          app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge"
     >
-	    <androidx.appcompat.widget.AppCompatImageView
+	   
+    </com.google.android.material.carousel.MaskableFrameLayout>-->
+     <com.google.android.material.imageview.ShapeableImageView
 		   android:layout_width="match_parent"
 		   android:layout_height="200dp"
 		   android:scaleType="centerCrop"
 		   android:id="@+id/imgMenu"
-		   android:src="@mipmap/logo_food"
-        />
-    </com.google.android.material.carousel.MaskableFrameLayout>
+		   android:src="@drawable/broken_picture_icon"
+    />
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,8 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/product_name"
-                    android:textColorHint="@color/colorThemeColor"
-                    android:textColor="@color/colorThemeColor"
+                    android:textColorHint="@color/ghost_white"
+                    android:textColor="@color/ghost_white"
                     android:id="@+id/InputItemName" />
 			</com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:textColor="@color/colorThemeColor"
                 android:textSize="@dimen/abc_action_bar_content_inset_material"
-                android:text="@string/add"
+                android:text="@string/add_ons"
                 android:layout_height="wrap_content"/>
 
 			<RelativeLayout

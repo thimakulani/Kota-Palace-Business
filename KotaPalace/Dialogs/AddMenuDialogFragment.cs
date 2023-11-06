@@ -8,6 +8,7 @@ using FFImageLoading;
 using Google.Android.Material.Button;
 using Google.Android.Material.Chip;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.ImageView;
 using Google.Android.Material.TextField;
 using KotaPalace.Models;
 using Plugin.FirebaseStorage;
@@ -27,7 +28,7 @@ namespace KotaPalace.Dialogs
     {
         private Context context;
 
-        private AppCompatImageView imgMenu;
+        private ShapeableImageView imgMenu;
         private TextInputEditText InputItemName;
         private TextInputEditText InputItemPrice;
 
@@ -81,7 +82,7 @@ namespace KotaPalace.Dialogs
         {
             CloseDialogImg = view.FindViewById<AppCompatImageView>(Resource.Id.CloseDialogImg);
 
-            imgMenu = view.FindViewById<AppCompatImageView>(Resource.Id.imgMenu);
+            imgMenu = view.FindViewById<ShapeableImageView>(Resource.Id.imgMenu);
             InputItemName = view.FindViewById<TextInputEditText>(Resource.Id.InputItemName);
             InputItemPrice = view.FindViewById<TextInputEditText>(Resource.Id.InputItemPrice);
             chipGroup = view.FindViewById<ChipGroup>(Resource.Id.chipAddOns);
@@ -230,9 +231,9 @@ namespace KotaPalace.Dialogs
 
                 if (file != null)
                 {
-                    var results = await ImageService.Instance
+                    ImageService.Instance
                         .LoadFile(file.FullPath)
-                        .IntoAsync(imgMenu);
+                        .Into(imgMenu);
 
                     return file;
                 }

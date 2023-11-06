@@ -95,6 +95,16 @@ namespace KotaPalace.Fragments
                     popup.Show();
                     popup.MenuItemClick += (ss, ee) =>
                     {
+                        if(ee.Item.ItemId == 0)
+                        {
+                            UpdateMenuDialogFragment updateMenuDialogFragment = new UpdateMenuDialogFragment(MenuList[e.Pos]);
+                            updateMenuDialogFragment.Show(ChildFragmentManager.BeginTransaction(), "");
+                            updateMenuDialogFragment.UpdateMenuHandler += (x, y) =>
+                            {
+                                MenuList[e.Pos] = y.Menu;
+                                adapter.NotifyDataSetChanged();
+                            };
+                        }
                         if (ee.Item.ItemId == 1)
                         {
 
@@ -105,9 +115,10 @@ namespace KotaPalace.Fragments
                             {
                                 try
                                 {
+                                    int m_id = MenuList[e.Pos].Id;
                                     HttpClient httpClient = new HttpClient();
                                     //var response = await httpClient.DeleteAsync($"{API.Url}/");
-                                    var response = await httpClient.DeleteAsync($"{API.Url}/menus/{MenuList[e.Pos].Id}");
+                                    var response = await httpClient.DeleteAsync($"{API.Url}/menus/{m_id}");
                                     if (response.IsSuccessStatusCode)
                                     {
                                         var str_results = await response.Content.ReadAsStringAsync();

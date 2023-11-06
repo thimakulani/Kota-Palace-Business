@@ -23,7 +23,7 @@
             android:inputType="textMultiLine"
             android:layout_toStartOf="@+id/BtnAddMenu"
             android:textSize="@dimen/abc_action_bar_content_inset_material"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorThemeColor"
             android:text="@string/add_description"
             />
 
@@ -34,7 +34,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             app:fabSize="mini"
-            android:text="@string/add_menu"
+            app:elevation="0dp"
 			android:src="@mipmap/ic_add_black_18dp"
             />
     </RelativeLayout>

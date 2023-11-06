@@ -5,81 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#dcdcdc"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp"
-    android:layout_margin="8dp"
+    android:layout_margin="5dp"
     >
 
-   
 
-        <RelativeLayout
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/order_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/order_name"
+            android:textColor="#2a2929"
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/order_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/order_price"
+            android:textSize="12sp"
+            android:textColor="@color/price_color"
+            android:layout_below="@id/order_item_name"/>
+
+        <View
+            android:id="@+id/top_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/order_item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/order_name"
-                android:textColor="#2a2929"
-                android:textStyle="normal"
-                android:textSize="18sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/order_item_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/order_price"
-                android:textSize="12sp"
-                android:textColor="@color/price_color"
-                android:layout_below="@id/order_item_name"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/order_item_id"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/order_id"
-                android:textColor="@color/black"
-                android:background="@drawable/button_bg"
-                android:gravity="center"
-                android:layout_alignParentEnd="true"
+            android:layout_height="1dp"
                 />
 
-            <View
-                android:id="@+id/top_view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                />
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/AddOnsChips"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:singleLine="false"
+            app:singleSelection="true"
+            app:chipSpacingHorizontal="1dp"
+            android:layout_below="@id/order_item_price"/>
 
-            <com.google.android.material.chip.ChipGroup
-                android:minWidth="25dp"
-                android:minHeight="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:id="@+id/AddOnsChips"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:singleLine="false"
-                app:singleSelection="true"
-                app:chipSpacingHorizontal="1dp"
-                android:layout_below="@id/order_item_price"/>
+        <View
+            android:id="@+id/bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"/>
 
-            <View
-                android:id="@+id/bottom_view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"/>
 
-          
-        </RelativeLayout>
-    
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

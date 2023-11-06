@@ -25,10 +25,8 @@ namespace KotaPalace.Adapters
 
             
 
-            vh.Name.Text = $"Name:{orderItems.ItemName}";
-            vh.Price.Text = $"Price:R{orderItems.Price}";
-            vh.Id.Text = orderItems.Id.ToString();
-
+            vh.Name.Text = $"Customer: {orderItems.ItemName}";
+            vh.Price.Text = $"Price: R{orderItems.Price}";
             var items = orderItems.Extras;
             var extras = items.Split('#');
 
@@ -38,7 +36,7 @@ namespace KotaPalace.Adapters
                 {
                     Chip chip = new Chip(vh.ItemView.Context)
                     {
-                        Text = i
+                        Text = i,
                     };
                     vh.ChipGroup.AddView(chip);
                 }
@@ -61,7 +59,6 @@ namespace KotaPalace.Adapters
 
     public class OrderItemViewHolder : RecyclerView.ViewHolder
     {
-        public MaterialTextView Id { get; set;}
         public MaterialTextView Price { get; set;}
         public MaterialTextView Name { get; set; }
         public ChipGroup ChipGroup { get; set;}
@@ -71,7 +68,6 @@ namespace KotaPalace.Adapters
         {
             Name = itemview.FindViewById<MaterialTextView>(Resource.Id.order_item_name);
             Price = itemview.FindViewById<MaterialTextView>(Resource.Id.order_item_price);
-            Id = itemview.FindViewById<MaterialTextView>(Resource.Id.order_item_id);
             ChipGroup = itemview.FindViewById<ChipGroup>(Resource.Id.AddOnsChips);
 
         }

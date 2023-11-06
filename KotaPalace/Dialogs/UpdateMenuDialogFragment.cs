@@ -4,6 +4,7 @@ using Android.Views;
 using AndroidHUD;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Fragment.App;
+using FFImageLoading;
 using Google.Android.Material.Button;
 using Google.Android.Material.Chip;
 using Google.Android.Material.FloatingActionButton;
@@ -35,12 +36,11 @@ namespace KotaPalace.Dialogs
 
 
         private ChipGroup chipGroup;
-        private  List<Extras> Items = new List<Extras>();
+        //private  List<Extras> Items = new List<Extras>();
 
         private MaterialButton BtnOpenAddDlg;
         private MaterialButton BtnSubmitMenu;
 
-        private string id = Preferences.Get("Id",null);
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -53,14 +53,10 @@ namespace KotaPalace.Dialogs
         {
         }
 
-        private int _id;
         private FileResult file;
         private Menu menu;
 
-        public UpdateMenuDialogFragment(int Id)
-        {
-            this._id = Id;
-        }
+        
 
         public UpdateMenuDialogFragment(Menu menu)
         {
@@ -70,7 +66,7 @@ namespace KotaPalace.Dialogs
         public override void OnStart()
         {
             base.OnStart();
-            Dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+            Dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent);
             Dialog.SetCanceledOnTouchOutside(false);
         }
 
@@ -101,6 +97,46 @@ namespace KotaPalace.Dialogs
             BtnOpenAddDlg = view.FindViewById<MaterialButton>(Resource.Id.BtnOpenAddDlg);
 
             BtnSubmitMenu = view.FindViewById<MaterialButton>(Resource.Id.BtnSubmitMenu);
+
+            ImageService.Instance
+                .LoadUrl(menu.Url)
+                .Into(imgMenu);
+            InputItemName.Text = menu.Name;
+            InputItemPrice.Text = menu.Price.ToString();
+
+
+            
+            foreach (var item in menu.Extras)
+            {
+                Chip chip = new Chip(context);
+                ChipDrawable drawable = ChipDrawable.CreateFromAttributes(context,
+                    null, 0, Resource.Style.Widget_MaterialComponents_Chip_Entry);
+                chip.SetChipDrawable(drawable);
+                chip.Text = item.Title;
+                chipGroup.AddView(chip);
+            }
+
+
+
+            /*
+             Chip chip = new Chip(context);
+            //create chip drawable
+            ChipDrawable drawable = ChipDrawable.CreateFromAttributes(context,
+                    null, 0, Resource.Style.Widget_MaterialComponents_Chip_Entry);
+
+            //set chip drawable
+            chip.SetChipDrawable(drawable);
+            chip.Text = e.Item;
+
+            Items.Add(new Extras() { Title = e.Item });
+
+            //chip.SetOnCloseIconClickListener(v1->
+            //        chipGroup.removeView(chip));
+
+            chipGroup.AddView(chip);
+             
+             */
+
 
             CloseDialogImg.Click += (s, e) =>
             {
@@ -138,7 +174,7 @@ namespace KotaPalace.Dialogs
             chip.SetChipDrawable(drawable);
             chip.Text = e.Item;
 
-            Items.Add( new Extras() { Title =  e.Item });
+            menu.Extras.Add( new Extras() { Title =  e.Item });
            
             chipGroup.AddView(chip);
         }
@@ -154,9 +190,6 @@ namespace KotaPalace.Dialogs
             else if (string.IsNullOrEmpty(InputItemPrice.Text) || string.IsNullOrWhiteSpace(InputItemPrice.Text))
             {
                 InputItemPrice.Error = "Please enter the item's price";
-            }else if(file == null)
-            {
-                Message("Please upload image for the menu");
             }
             else
             {
@@ -164,26 +197,34 @@ namespace KotaPalace.Dialogs
                 {
                    //await Xamarin.Essentials.TextToSpeech.SpeakAsync("Hello");
                     var businessId = Preferences.Get("businessId", 0);
+                    Uri url = null;
+                    if(file != null)
+                    {
+                        var memoryStream = new MemoryStream();
+                        var st = await file.OpenReadAsync();
+                        string filename = $"{file.FileName}";
+                        var results = CrossFirebaseStorage.Current
+                            .Instance
+                            .RootReference
+                            .Child("Menu images")
+                            .Child(filename);
 
-                    var memoryStream = new MemoryStream();
-                    var st = await file.OpenReadAsync();
-                    string filename = $"{file.FileName}";
-                    var results = CrossFirebaseStorage.Current
-                        .Instance
-                        .RootReference
-                        .Child("Menu images")
-                        .Child(filename);
+                        await results.PutStreamAsync(st);
 
-                    await results.PutStreamAsync(st);
-
-                    var url = await results.GetDownloadUrlAsync();
+                        url = await results.GetDownloadUrlAsync();
+                    }
+                    
 
                     menu.BusinessId = businessId;
                     menu.Name = InputItemName.Text.Trim();
                     menu.Status = true;
                     menu.Price = Convert.ToDouble(InputItemPrice.Text);
-                    menu.Extras = Items;
-                    menu.Url = url.ToString();
+                   // menu.Extras = Items;
+                    if(url != null)
+                    {
+                        menu.Url = url.ToString();
+
+                    }
 
                     var json = Newtonsoft.Json.JsonConvert.SerializeObject(menu);
                     HttpContent data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -199,8 +240,9 @@ namespace KotaPalace.Dialogs
                         InputItemName.Text = "";
                         InputItemPrice.Text = "";
                         chipGroup.RemoveAllViews();
-                        Items.Clear();
+                        //Items.Clear();
                         file = null;
+                        UpdateMenuHandler?.Invoke(this, new UpdateMenuArgs() { Menu = menu });
                     }
                 }
                 catch (Exception ex)
@@ -209,7 +251,11 @@ namespace KotaPalace.Dialogs
                 }
             }
         }
-
+        public event EventHandler<UpdateMenuArgs> UpdateMenuHandler;
+        public class UpdateMenuArgs : EventArgs
+        {
+            public Menu Menu { get; set; } 
+        }
         private async Task<FileResult> PickAndShow()
         {
             try

@@ -1,5 +1,7 @@
-﻿using Android.OS;
+﻿using Android.Content;
+using Android.OS;
 using Android.Views;
+using Android.Widget;
 using AndroidX.Fragment.App;
 using AndroidX.ViewPager2.Adapter;
 using AndroidX.ViewPager2.Widget;
@@ -16,12 +18,11 @@ namespace KotaPalace.Fragments
 {
     public class OrdersFragment : Fragment
     {
-        private ShimmerFrameLayout shimmer_container;
         private TabLayout tabHost;
         private ViewPager2 viewpager;
 
-        private readonly int[] tabIcons = { Resource.Drawable.ic_order, Resource.Drawable.ic_restaurant_menu };
-        private HubConnection hubConnection;
+        private readonly int[] tabIcons = { Resource.Drawable.ic_order, Resource.Drawable.ic_restaurant_menu, Resource.Mipmap.ic_store_white_18dp };
+
         public OrdersFragment()
         {
             
@@ -35,19 +36,50 @@ namespace KotaPalace.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.fragment_orders, container, false);
-
+            context = view.Context;
             Init(view);
             SetViewPager();
 
             return view;
         }
         private MaterialSwitch status;
+        private Context context;
+
         private void Init(View view)
         {
             tabHost = view.FindViewById<TabLayout>(Resource.Id.TabHost);
             viewpager = view.FindViewById<ViewPager2>(Resource.Id.viewpager);
             status = view.FindViewById<MaterialSwitch>(Resource.Id.status);
             status.Click += Status_Click;
+            status.TextOff = "OFFLINE";
+            status.TextOn = "ONLINE";
+            GetProfile();
+        }
+        private async void GetProfile()
+        {
+            try
+            {
+                string userId = Preferences.Get("Id", null);
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var response = await httpClient.GetAsync($"{API.Url}/businesses/specific/{userId}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var str = await response.Content.ReadAsStringAsync();
+                        var business = Newtonsoft.Json.JsonConvert.DeserializeObject<Business>(str);
+                        if (business.Online == "ONLINE")
+                        {
+                            status.Checked = true;
+                        }
+                    }
+
+                };
+            }
+            catch (HttpRequestException ex)
+            {
+                Toast.MakeText( context, "Error Log: (Order Fragment)" + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private async void Status_Click(object sender, System.EventArgs e)
@@ -80,8 +112,11 @@ namespace KotaPalace.Fragments
         private void SetViewPager()
         {
             var adapter = new Adapter(this);
-            adapter.AddFragment(new PrepareOrderFragmentTab(), "ORDERS");
-            adapter.AddFragment(new ReadyOrdersFragmentTab(), "READY");
+            var order_tab = new OrderTabFragment();
+            var prepare = new PrepareOrdersFragmentTab(order_tab);
+            adapter.AddFragment(order_tab, "ORDERS");
+            adapter.AddFragment(prepare, "PREPARING");
+            adapter.AddFragment(new CompleteTabFragment(prepare), "COMPLETE");
 
             viewpager.Adapter = adapter;
 

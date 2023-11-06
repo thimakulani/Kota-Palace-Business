@@ -16,10 +16,10 @@ using ID.IonBit.IonAlertLib;
 using KotaPalace.Dialogs;
 using System.Text;
 using NUnit.Framework;
-using IsmaelDiVita.ChipNavigationLib;
 using static Android.Icu.Text.Transliterator;
 using Google.Android.Material.AppBar;
 using Microsoft.AspNetCore.SignalR.Client;
+using IsmaelDiVita.ChipNavigationLib;
 
 namespace KotaPalace
 {
@@ -28,7 +28,7 @@ namespace KotaPalace
     {
         //private BubbleNavigationLinearView navigationView;
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
@@ -37,23 +37,23 @@ namespace KotaPalace
             {
                 LoadDefaultFragment();
             }
-            var hubConnection = new HubConnectionBuilder()
-                .WithUrl("https://kotapalaceadmin.azurewebsites.net/OrderHub")
-                .Build();
-            hubConnection.On<Order>("Order", (response) =>
+            var hubConnection = new HubConnectionBuilder().WithUrl("https://kotapalaceadmin.azurewebsites.net/OrderHub").Build();
+            // var hubConnection = new HubConnectionBuilder().Build().with.("https://kotapalaceadmin.azurewebsites.net/OrderHub").Build();
+            hubConnection.On<Object>("Order", (message) =>
             {
-                Console.WriteLine(response);
+                var encodedMsg = $"{message}";
+
             });
-            hubConnection.StartAsync();
+
+            await hubConnection.StartAsync();
             if (hubConnection.State == HubConnectionState.Connected)
             {
-                Console.WriteLine("Connected to the hub.");
-                // You can now interact with the hub.
+                Console.Write("");
             }
             InitializeComponents();
             _ = GetUserId();
         }
-        MaterialToolbar toolbar_main;
+        //MaterialToolbar toolbar_main;
         private void InitializeComponents()
         {
             //navigationView = FindViewById<BubbleNavigationLinearView>(Resource.Id.bottom_navigation_view_linear);
@@ -61,7 +61,7 @@ namespace KotaPalace
 
 
             var nav_menu = FindViewById<ChipNavigationBar>(Resource.Id.MenuNav);
-            toolbar_main = FindViewById<MaterialToolbar>(Resource.Id.toolbar_main);
+           // toolbar_main = FindViewById<MaterialToolbar>(Resource.Id.toolbar_main);
             nav_menu.SetMenuResource(Resource.Menu.nav_menu);
             nav_menu.SetItemSelected(Resource.Id.nav_home);
             nav_menu.SetOnItemSelectedListener(this);
@@ -114,7 +114,7 @@ namespace KotaPalace
                             }
 
                         }
-                        toolbar_main.Title = business.Name;
+                       // toolbar_main.Title = business.Name;
                     }
                     else
                     {

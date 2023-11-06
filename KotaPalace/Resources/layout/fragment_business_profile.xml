@@ -43,7 +43,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="owner"
                 android:textStyle="bold"
-                android:capitalize="true"
+                android:capitalize="sentences"
                 android:textAllCaps="true"
                 android:layout_gravity="end"/>
 
@@ -157,7 +157,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/FabMenuImg"
+        android:id="@+id/FabProfileImg"
         app:layout_anchor="@+id/menu_top_app_bar"
         android:backgroundTint="@color/colorThemeColor"
         app:layout_anchorGravity="right|bottom"

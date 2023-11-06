@@ -25,7 +25,8 @@ namespace KotaPalace.Dialogs
         private TextView customer_name;
         private TextView order_price;
         private TextView customer_number;
-        //private TextView order_status;
+        private TextView order_type;
+        //private TextView order_description;
 
         private RecyclerView orderItemsRecyclerView;
 
@@ -38,9 +39,7 @@ namespace KotaPalace.Dialogs
         private readonly Order order;
         readonly List<OrderItems> OrderItemList = new List<OrderItems>();
 
-        public OrderDetailsDialog()
-        {
-        }
+        
 
         public OrderDetailsDialog(Order order)
         {
@@ -82,9 +81,12 @@ namespace KotaPalace.Dialogs
             order_price = view.FindViewById<TextView>(Resource.Id.total_price);
             customer_name = view.FindViewById<TextView>(Resource.Id.customer_name);
             customer_number = view.FindViewById<TextView>(Resource.Id.customer_contact);
+            order_type = view.FindViewById<TextView>(Resource.Id.order_type);
+            //order_description = view.FindViewById<TextView>(Resource.Id.order_description);
 
             customer_name.Text = $"{order.Customer.Firstname} {order.Customer.Lastname}";
             customer_number.Text = order.Customer.PhoneNumber;
+            //order_description.Text = order.
 
 
             close_order_view.Click += (s, e) =>
@@ -103,23 +105,23 @@ namespace KotaPalace.Dialogs
             {
                 Dismiss();
             };
-
+            */
             BtnProcess.Click += (s, e) =>
             {
                 ProcessOrderAsync();
-            };*/
+            };
         }
 
         private void CheckOrderStatus()
         {
             if (order.Status == "Pending")
             {
-                BtnProcess.Text = "ACCEPT";
+                BtnProcess.Text = "Accept";
 
             }
             else if (order.Status == "Accepted")
             {
-                BtnProcess.Text = "FINISH";
+                BtnProcess.Text = "Completed";
             }
             else
             {
@@ -145,11 +147,6 @@ namespace KotaPalace.Dialogs
                 orderItemsRecyclerView.SetLayoutManager(mLayoutManager);
                 OrderItemAdapter mAdapter = new OrderItemAdapter(OrderItemList);
                 orderItemsRecyclerView.SetAdapter(mAdapter);
-
-
-                //business_Id.Text = $"Business ID: {order.BusinessId}";
-                //order_status.Text = $"Status: {order.Status}";
-
                 var extras = order.OrderItems;
                 decimal price = 0;
                 foreach (var item in extras)
@@ -160,6 +157,7 @@ namespace KotaPalace.Dialogs
                     //customer_name.Text = item.ItemName;
                 }
                 order_price.Text = $"R{price}";
+                order_type.Text = order.Option;
                 mAdapter.NotifyDataSetChanged();
 
             }
@@ -167,6 +165,11 @@ namespace KotaPalace.Dialogs
             {
                 Message(e.Message);
             }
+        }
+        public event EventHandler<UpdateOrder> UpdateOrderHandler;
+        public class UpdateOrder : EventArgs
+        {
+            public int Id { get; set; }
         }
 
         private async void ProcessOrderAsync()
@@ -178,16 +181,24 @@ namespace KotaPalace.Dialogs
 
             try
             {
-                var response = await client.PutAsync($"{API.Url}/orders/process/{order.Id}", data);
+                var response = await client.PutAsync($"{API.Url}/orders/update_status/{order.Id}", data);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    string str_out = await response.Content.ReadAsStringAsync();
-                    //SuccessMessage(str_out);
-                    if (str_out == "Ready")
-                    {
 
-                    }
+                    string str_out = await response.Content.ReadAsStringAsync();
+                    UpdateOrderHandler.Invoke(this, new UpdateOrder() { Id = order.Id });
+                    //SuccessMessage(str_out);
+                    /* if (str_out == "Completed")
+                     {
+                         BtnProcess.Enabled = false;
+                         BtnProcess.Text = "DONE";
+                     }
+                     else if (str_out == "Accepted")
+                     {
+                         BtnProcess.Text = "Completed";
+                     }*/
+
                 }
                 else
                 {
