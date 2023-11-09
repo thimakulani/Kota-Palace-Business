@@ -14,6 +14,7 @@
 	<string name="txt_landing_page_caption">Sign in</string>
 	<string name="btn_login">Login Business App</string>
 	<string name="btn_sign_up">Sign up</string>
+	<string name="btn_sign_out">Logout</string>
 	<string name="input_password">Password</string>
 	<string name="input_password_confirm"> Confirm password</string>
 	<string name="input_email">Email</string>

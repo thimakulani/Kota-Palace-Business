@@ -20,6 +20,7 @@ using static Android.Icu.Text.Transliterator;
 using Google.Android.Material.AppBar;
 using Microsoft.AspNetCore.SignalR.Client;
 using IsmaelDiVita.ChipNavigationLib;
+using Google.Android.Material.Button;
 
 namespace KotaPalace
 {
@@ -32,7 +33,8 @@ namespace KotaPalace
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
-
+            var btn_logout = FindViewById<MaterialButton>(Resource.Id.btn_logout);
+            btn_logout.Click += Btn_logout_Click;
             if (savedInstanceState == null)
             {
                 LoadDefaultFragment();
@@ -53,6 +55,14 @@ namespace KotaPalace
             InitializeComponents();
             _ = GetUserId();
         }
+
+        private void Btn_logout_Click(object sender, EventArgs e)
+        {
+            Preferences.Clear();
+            this.Finish();
+
+        }
+
         //MaterialToolbar toolbar_main;
         private void InitializeComponents()
         {
