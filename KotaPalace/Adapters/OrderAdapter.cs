@@ -39,7 +39,7 @@ namespace KotaPalace.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-           
+
 
             // Replace the contents of the view with that element
             var vh = viewHolder as OrderAdapterViewHolder;
@@ -47,6 +47,7 @@ namespace KotaPalace.Adapters
 
             // vh.row_order_customer.Text = $"{order.Id}";
             vh.Row_order_status.Text = $"{order.Status}";
+            vh.Row_order_id.Text = $"ORDER# {order.Id}";
 
             //var date = Convert.ToDateTime(order.OrderDate);
             vh.Row_order_date.Text = order.OrderDateUtc.ToString("ddd, dd MMM yyyy");
@@ -61,7 +62,7 @@ namespace KotaPalace.Adapters
             {
                 vh.Row_order_customer.Text = $"{order?.Customer.Firstname} {order?.Customer.Lastname}";
             }
-            
+
         }
 
         public override int ItemCount => items.Count;
@@ -79,6 +80,7 @@ namespace KotaPalace.Adapters
         public MaterialTextView Row_order_status { get; set; }
         public MaterialTextView Row_order_customer { get; set; }
         public MaterialTextView Row_order_date { get; set; }
+        //public MaterialTextView row_order_id { get; set; }
         public AppCompatTextView Row_order_time { get; set; }
         public MaterialButton View_btn { get; set; }
 

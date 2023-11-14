@@ -24,7 +24,7 @@ using Google.Android.Material.Button;
 
 namespace KotaPalace
 {
-    [Activity(Label = null, Theme = "@style/AppTheme", MainLauncher = false)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false)]
     public class MainActivity : AppCompatActivity, ChipNavigationBar.IOnItemSelectedListener
     {
         //private BubbleNavigationLinearView navigationView;
@@ -71,7 +71,7 @@ namespace KotaPalace
 
 
             var nav_menu = FindViewById<ChipNavigationBar>(Resource.Id.MenuNav);
-           // toolbar_main = FindViewById<MaterialToolbar>(Resource.Id.toolbar_main);
+            // toolbar_main = FindViewById<MaterialToolbar>(Resource.Id.toolbar_main);
             nav_menu.SetMenuResource(Resource.Menu.nav_menu);
             nav_menu.SetItemSelected(Resource.Id.nav_home);
             nav_menu.SetOnItemSelectedListener(this);
@@ -124,7 +124,7 @@ namespace KotaPalace
                             }
 
                         }
-                       // toolbar_main.Title = business.Name;
+                        // toolbar_main.Title = business.Name;
                     }
                     else
                     {

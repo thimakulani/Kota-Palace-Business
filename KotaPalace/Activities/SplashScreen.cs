@@ -15,7 +15,7 @@ using Xamarin.Essentials;
 
 namespace KotaPalace.Activities
 {
-    [Activity(Label = "SplashScreen", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashScreen : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
