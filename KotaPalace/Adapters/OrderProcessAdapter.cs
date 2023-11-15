@@ -42,13 +42,14 @@ namespace KotaPalace.Adapters
             // Replace the contents of the view with that element
             var vh = viewHolder as CompleteAdapterViewHolder;
             //holder.TextView.Text = items[position];
-            
+
 
             //vh.row_order_no.Text = order.Id.ToString();
+            vh.row_order_no.Text = $"ORDER# {order.Id}";
             vh.row_order_option.Text = order.Option;
             vh.row_order_status.Text = order.Status;
             vh.row_order_date.Text = order.OrderDateUtc.ToString("ddd, dd MMM yyyy HH:mm");
-            vh.row_order_id.Text = $"{order.Customer.Firstname} {order.Customer.Lastname}";
+            vh.row_order_customer.Text = $"{order.Customer.Firstname} {order.Customer.Lastname}";
         }
 
         public override int ItemCount => items.Count;
@@ -62,7 +63,7 @@ namespace KotaPalace.Adapters
     {
         //public TextView TextView { get; set; }
         public AppCompatImageView row_order_image { get; set; }
-        public MaterialTextView row_order_id { get; set; }
+        public MaterialTextView row_order_customer { get; set; }
         public MaterialTextView row_order_status { get; set; }
         public MaterialTextView row_order_no { get; set; }
         public MaterialTextView row_order_date { get; set; }
@@ -74,7 +75,7 @@ namespace KotaPalace.Adapters
             //TextView = v;
             row_order_no = itemView.FindViewById<MaterialTextView>(Resource.Id.row_order_no);
             row_order_status = itemView.FindViewById<MaterialTextView>(Resource.Id.row_order_status);
-            row_order_id = itemView.FindViewById<MaterialTextView>(Resource.Id.row_order_id);
+            row_order_customer = itemView.FindViewById<MaterialTextView>(Resource.Id.row_order_customer);
             row_order_date = itemView.FindViewById<MaterialTextView>(Resource.Id.row_order_date);
             row_order_option = itemView.FindViewById<MaterialTextView>(Resource.Id.row_order_option);
             itemView.Click += (sender, e) => clickListener(new CompleteAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });

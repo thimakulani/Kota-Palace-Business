@@ -18,15 +18,14 @@
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@+id/row_order_no">
+            android:layout_toEndOf="@+id/row_order_customer">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/row_order_id"
+                android:id="@+id/row_order_customer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:text="Order no:"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textAllCaps="true"
@@ -37,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Status"
                 android:textColor="@color/price_color"
                     />
             <com.google.android.material.textview.MaterialTextView
@@ -46,16 +44,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Date"
                 android:textColor="@color/gray"
-                    />  
+                    />
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/row_order_option"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Date"
+                android:textColor="@color/gray"
+                    />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/row_order_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/gray"
                     />
         </LinearLayout>
